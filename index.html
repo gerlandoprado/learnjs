@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo AJAX</title>
+</head>
+<body>
+
+<button id="carregarDadosBtn">Carregar Dados</button>
+<div id="resultado"></div>
+
+<script>
+// Função que executa a chamada AJAX
+function carregarDados() {
+    var xhr = new XMLHttpRequest(); // Criar uma nova instância do objeto XMLHttpRequest
+    xhr.open("GET", "http://127.0.0.1/time", true); // Configurar a solicitação: tipo (GET), URL e modo assíncrono (true)
+
+    xhr.onreadystatechange = function() { // Definir a função a ser chamada quando o estado da solicitação muda
+        if (xhr.readyState == 4 && xhr.status == 200) { // Verificar se a solicitação foi concluída (readyState == 4) e se foi bem-sucedida (status == 200)
+            console.log("teste"); // Exibir a resposta JSON no console
+            var dados = JSON.parse(xhr.responseText); // Converter a resposta JSON em um objeto JavaScript
+            document.getElementById("resultado").innerHTML = "<h1>" + dados + "</h1>"; // Atualizar o conteúdo do elemento com ID "resultado"
+        }
+    };
+
+    xhr.send(); // Enviar a solicitação ao servidor
+}
+
+// Adicionar um ouvinte de evento ao botão para executar a função carregarDados() quando clicado
+//document.getElementById("carregarDadosBtn").addEventListener("click", carregarDados);
+setInterval(carregarDados, 1000);
+</script>
+
+</body>
+</html>
